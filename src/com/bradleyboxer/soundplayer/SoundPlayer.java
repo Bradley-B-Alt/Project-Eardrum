@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,11 +20,11 @@ public class SoundPlayer extends JFrame {
 	static JPanel buttonPanel2 = new JPanel();
 	static JPanel buttonPanel3 = new JPanel();
 	static JButton stopPlaying = new JButton();
-	
+	static Color buttonColor = Color.decode("#66CCCC");
 	/*to add sounds, update these lines*/
-	static AudioClip[] clickArray = {simp(0), simp(1), simp(2), simp(3), simp(4), simp(5)};
-	static JButton[] buttonArray = {new JButton(), new JButton(), new JButton(), new JButton(), new JButton(), new JButton()};
-	static String[] buttonNames = {"Explosion", "Rick Astley", "Sandstorm", " Heyeyeyey", "Bork", "FIRST Priority"};
+	static AudioClip[] clickArray = {simp(3), simp(1), simp(2), simp(0), simp(4), simp(5), simp(6), simp(7)};
+	static JButton[] buttonArray = {new JButton(), new JButton(), new JButton(), new JButton(), new JButton(), new JButton(), new JButton(), new JButton()};
+	static String[] buttonNames = {"Heyeyeyey", "Rick Astley", "Sandstorm", "Explosion", "Bork", "FIRST Priority", "Mnuah!", "Airhorn"};
 	/*to add sounds, update these lines*/
 	
 	static int soundTally = clickArray.length;
@@ -42,8 +44,15 @@ public class SoundPlayer extends JFrame {
 		this.add(buttonPanel);
 		this.add(buttonPanel2);
 		this.add(buttonPanel3);
-		this.getContentPane().setBackground(Color.white);
+		this.getContentPane().setBackground(Color.decode("#5F9F9F"));
 		this.setResizable(false);
+		this.setIconImage(new ImageIcon(SoundPlayer.class.getResource("/resources/icon.png")).getImage());
+		stopPlaying.setText("Stop Playback");
+		stopPlaying.addActionListener(new stopPlayback());
+		stopPlaying.setBackground(buttonColor);
+		buttonPanel.setBackground(Color.decode("#2F4F4F"));
+		buttonPanel2.setBackground(Color.decode("#2F4F4F"));
+		buttonPanel3.setBackground(Color.decode("#2F4F4F"));
 		
 		for(int i = 0;i<soundTally;i++) { //add every JButton to one of three panels split 3 per
 			if(i<3) {buttonPanel.add(buttonArray[i]);} 
@@ -51,11 +60,9 @@ public class SoundPlayer extends JFrame {
 			if(i<9 && i>=6) {buttonPanel3.add(buttonArray[i]);} 
 			buttonArray[i].setText(buttonNames[i]); //set text of buttons
 			buttonArray[i].addActionListener(new playSound()); //listen for button presses
+			buttonArray[i].setBackground(buttonColor);
 		}
-		
 		buttonPanel3.add(stopPlaying);
-		stopPlaying.setText("Stop Playback");
-		stopPlaying.addActionListener(new stopPlayback());
 	}
 	
 	public static void main(String[] args) {
